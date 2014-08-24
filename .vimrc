@@ -22,6 +22,10 @@ catch /^Vim\%((\a\+)\)\=:E185/
   " deal with it
 endtry
 
+" General settings
+set relativenumber
+set number
+
 function Defaults()
 
   " Ctrl-P
