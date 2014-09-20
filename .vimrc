@@ -1,13 +1,13 @@
 call plug#begin('~/.vim/bundle')
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'kien/ctrlp.vim'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'bling/vim-airline'
-Plug 'mbbill/undotree'
-Plug 'jnurmine/Zenburn'
-Plug 'vim-scripts/camelcasemotion'
+  Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+  Plug 'kien/ctrlp.vim'
+  Plug 'kien/rainbow_parentheses.vim'
+  Plug 'bling/vim-airline'
+  Plug 'mbbill/undotree'
+  Plug 'jnurmine/Zenburn'
+  Plug 'vim-scripts/camelcasemotion'
 call plug#end()
 
 let mapleader=","
@@ -43,5 +43,21 @@ function Defaults()
   endif
 
 endfunction
+
+function! CloseWindowOrKillBuffer() "{{{
+  let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
+  " never bdelete a nerd tree
+  if matchstr(expand("%"), 'NERD') == 'NERD'
+    wincmd c
+    return
+  endif
+  if number_of_windows_to_this_buffer > 1
+    wincmd c
+  else
+    bdelete
+  endif
+endfunction "}}}
+
+nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
 
 autocmd VimEnter * call Defaults()
