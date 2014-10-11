@@ -25,6 +25,8 @@ endtry
 " General settings
 set relativenumber
 set number
+set cm=blowfish
+
 
 function Defaults()
 
